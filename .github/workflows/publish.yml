@@ -18,6 +18,7 @@ jobs:
     - name: Upload artifact
     uses: actions/upload-artifact@v1.0.0
     with:
+      uses: actions/setup-java@v1
       # Artifact name
       name: vegas_2.11-0.3.13.01-scala2.11.0.jar
       # Directory containing files to upload

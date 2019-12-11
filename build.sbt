@@ -40,7 +40,6 @@ lazy val mkVegaModel = taskKey[Unit]("Compiles and copies the vega-lite model an
 mkVegaModel := {
   val src = (scalaBinaryVersion.value match {
     case "2.11" => file("spec/target/scala-2.11/Spec.scala")
-    case "2.12" => file("spec/target/scala-2.12/Spec.scala")
   })
   val dest = file("core/src/main/scala/vegas/spec/Spec.scala")
   IO.write(dest, """
@@ -84,10 +83,11 @@ lazy val circeVersion = "0.7.0"
 lazy val commonSettings = Seq(
   description := "The missing matplotlib for Scala and Spark",
   organization := "org.vegas-viz",
-  crossScalaVersions := Seq("2.11.8", "2.12.10"),
-  scalaVersion := "2.12.10",
+  crossScalaVersions := Seq("2.11.0"),
+  scalaVersion := "2.11.0",
   vegaLiteVersion := "1.2.0",
   scalacOptions ++= Seq("-target:jvm-1.7", "-Ywarn-unused-import"),
+  javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint"),
   homepage := Some(url("http://vegas-viz.org")),
   licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/MIT")),
 //  parallelExecution in Test := false,
@@ -165,8 +165,7 @@ lazy val macros = project.
       "org.typelevel" %% "macro-compat" % "1.1.1",
       "com.github.julien-truffaut" %% "monocle-core" % (scalaBinaryVersion.value match {
         case "2.11" => "1.1.0"
-        case "2.12" => "1.3.2"
-      })
+     })
     )
   )
 
@@ -208,11 +207,11 @@ lazy val vegas = project.in(file("core")).
       "io.circe" %% "circe-parser" % circeVersion,
       "com.github.julien-truffaut" %% "monocle-macro" % (scalaBinaryVersion.value match {
         case "2.11" => "1.1.0"
-        case "2.12" => "1.3.2"
+        
       }),
       "com.github.julien-truffaut" %% "monocle-core" % (scalaBinaryVersion.value match {
         case "2.11" => "1.1.0"
-        case "2.12" => "1.3.2"
+    
       }),
       "org.scalafx" %% "scalafx" % "12.0.2-R18",
       "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
